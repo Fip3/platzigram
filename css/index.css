@@ -1,0 +1,47 @@
+@charset "UTF-8";
+@import url(node_modules/materialize-css/sass/materialize.css);
+body {
+  background: white;
+  color: teal;
+  font-family: 'Roboto Slab', serif; }
+
+#main-container {
+  margin: 30px auto;
+  /*superior e inferior 30px; laterales automático ~centrado*/ }
+
+.logo {
+  max-width: 100%; }
+
+.site-footer {
+  text-transform: uppercase;
+  font-size: 12px; }
+
+.login-box,
+.signup-box {
+  background-color: whitesmoke;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+  padding: 10px 0;
+  text-align: center; }
+
+.signup-box .platzigram {
+  font-family: 'Lobster', cursive;
+  font-size: 42px; }
+
+.signup-form {
+  width: 65%;
+  margin: 0 auto; }
+
+.signup-form h2 {
+  color: grey;
+  font-size: 1.2em; }
+
+.signup-form .btn.btn-fb {
+  background-color: #435f9c;
+  font-size: .9em; }
+
+.signup-form .btn.btn-fb:hover {
+  background-color: #5b77b4; }
+
+.signup-form .btn.btn-signup {
+  background-color: darkblue; }
