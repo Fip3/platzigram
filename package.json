@@ -1,0 +1,24 @@
+{
+  "name": "platzigram",
+  "version": "0.1.0",
+  "description": "comparte fotos estudiando en platzi con tu comunidad",
+  "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fip3/platzigram.git"
+  },
+  "keywords": [
+    "platzi",
+    "javascript",
+    "platzigram"
+  ],
+  "author": "fip3",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Fip3/platzigram/issues"
+  },
+  "homepage": "https://github.com/Fip3/platzigram#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
