@@ -8,6 +8,6 @@ gulp.task('styles', function(){
     .pipe(sass())
     .pipe(rename('app.css'))
     .pipe(gulp.dest('css'));
-})
+});
 
-gulp.task('default',['styles'])
+gulp.task('default',['styles']);
