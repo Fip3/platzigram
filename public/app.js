@@ -2292,6 +2292,29 @@ function pathToRegexp (path, keys, options) {
 }
 
 },{"isarray":9}],14:[function(require,module,exports){
+
+var orig = document.title;
+
+exports = module.exports = set;
+
+function set(str) {
+  var i = 1;
+  var args = arguments;
+  document.title = str.replace(/%[os]/g, function(_){
+    switch (_) {
+      case '%o':
+        return orig;
+      case '%s':
+        return args[i++];
+    }
+  });
+}
+
+exports.reset = function(){
+  set(orig);
+};
+
+},{}],15:[function(require,module,exports){
 var bel = require('bel') // turns template tag into DOM elements
 var morphdom = require('morphdom') // efficiently diffs + morphs two DOM elements
 var defaultEvents = require('./update-events.js') // default events to be copied when dom elements update
@@ -2327,7 +2350,7 @@ module.exports.update = function (fromNode, toNode, opts) {
   }
 }
 
-},{"./update-events.js":15,"bel":1,"morphdom":10}],15:[function(require,module,exports){
+},{"./update-events.js":16,"bel":1,"morphdom":10}],16:[function(require,module,exports){
 module.exports = [
   // attribute events (can be set with attributes)
   'onclick',
@@ -2365,15 +2388,17 @@ module.exports = [
   'onfocusout'
 ]
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var page = require('page');
+var title = require('title');
 
 page('/', function (ctx, next) {
+  title('Platzigram - Inicio');
   var main = document.getElementById('main-container');
   main.innerHTML = '<a href="/signup">SIGNUP</a>';
 });
 
-},{"page":12}],17:[function(require,module,exports){
+},{"page":12,"title":14}],18:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2382,7 +2407,7 @@ require('./signin');
 
 page();
 
-},{"./homepage":16,"./signin":19,"./signup":21,"page":12}],18:[function(require,module,exports){
+},{"./homepage":17,"./signin":20,"./signup":22,"page":12}],19:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
@@ -2400,17 +2425,19 @@ module.exports = function landing(box) {
     </div>`;
 };
 
-},{"yo-yo":14}],19:[function(require,module,exports){
+},{"yo-yo":15}],20:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
+var title = require('title');
 
 page('/signin', function (ctx, next) {
+  title('Platzigram - Inscripción');
   var main = document.getElementById('main-container');
   empty(main).appendChild(template);
 });
 
-},{"./template":20,"empty-element":4,"page":12}],20:[function(require,module,exports){
+},{"./template":21,"empty-element":4,"page":12,"title":14}],21:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2441,17 +2468,19 @@ var signinForm = yo`<div class="col s12 m7 ">
 
 module.exports = landing(signinForm);
 
-},{"../landing":18,"yo-yo":14}],21:[function(require,module,exports){
+},{"../landing":19,"yo-yo":15}],22:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
+var title = require('title');
 
 page('/signup', function (ctx, next) {
+  title('Platzigram - Ingresa');
   var main = document.getElementById('main-container');
   empty(main).appendChild(template);
 });
 
-},{"./template":22,"empty-element":4,"page":12}],22:[function(require,module,exports){
+},{"./template":23,"empty-element":4,"page":12,"title":14}],23:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2485,4 +2514,4 @@ var signupForm = yo`<div class="col s12 m7 ">
 
 module.exports = landing(signupForm);
 
-},{"../landing":18,"yo-yo":14}]},{},[17]);
+},{"../landing":19,"yo-yo":15}]},{},[18]);
