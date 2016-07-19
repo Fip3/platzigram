@@ -17,8 +17,8 @@ app.get('/signin', function(req,res){
 	res.render('index', { title: 'Platzigram - Inscríbete'});
 });
 
-app.listen(3000,function(err){
-	if (err) return console.log('ERROR'), process.exit(1);
+app.listen(3000, function(err){
+	if (err) return console.log('Ha habido un error'), process.exit(1);
 
 	console.log('Platzigram escuchando al puerto 3000');
 });
