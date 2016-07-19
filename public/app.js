@@ -2397,24 +2397,50 @@ var title = require('title');
 page('/', function (ctx, next) {
   title('Platzigram');
   var main = document.getElementById('main-container');
-  empty(main).appendChild(template);
+
+  var pictures = [{
+    user: {
+      username: 'fip3',
+      avatar: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/45537_422800539157_2150048_n.jpg?oh=74fa4353f2d6fe9d7a5434640a7f2704&oe=57F2B8E9'
+    },
+    url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/13770529_10154333404344798_8160011981890782288_n.jpg?oh=58f161f2749ced679ef33f70dabd921c&oe=582FE67A',
+    likes: 5,
+    liked: true
+  }, {
+    user: {
+      username: 'fip3',
+      avatar: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/45537_422800539157_2150048_n.jpg?oh=74fa4353f2d6fe9d7a5434640a7f2704&oe=57F2B8E9'
+    },
+    url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/12743668_10153937542994798_5943561022104462831_n.jpg?oh=69d529ed982407338f37d39e4964fa73&oe=57EF2F1A',
+    likes: 12,
+    liked: true
+  }];
+
+  empty(main).appendChild(template(pictures));
 });
 
 },{"./template":18,"empty-element":4,"page":12,"title":14}],18:[function(require,module,exports){
 var yo = require('yo-yo');
 var layout = require('../layout');
+var picture = require('../picturecards');
 
-var template = yo`<div class="container timeline">
-  <div class="row">
-    <div class="col s12 m10 offset-m1 l6 offset-l3">
-      content
-    </div>
-  </div>
-</div>`;
+var template = function (pictures) {};
 
-module.exports = layout(template);
+module.exports = function (pictures) {
+	var el = yo`<div class="container timeline">
+	  <div class="row">
+	    <div class="col s12 m10 offset-m1 l6 offset-l3">
+	      ${ pictures.map(function (pic) {
+		return picture(pic);
+	}) }
+	    </div>
+	  </div>
+	</div>`;
 
-},{"../layout":21,"yo-yo":15}],19:[function(require,module,exports){
+	return layout(el);
+};
+
+},{"../layout":21,"../picturecards":22,"yo-yo":15}],19:[function(require,module,exports){
 var page = require('page');
 
 require('./homepage');
@@ -2423,7 +2449,7 @@ require('./signin');
 
 page();
 
-},{"./homepage":17,"./signin":22,"./signup":24,"page":12}],20:[function(require,module,exports){
+},{"./homepage":17,"./signin":23,"./signup":25,"page":12}],20:[function(require,module,exports){
 var yo = require('yo-yo');
 
 module.exports = function landing(box) {
@@ -2472,6 +2498,28 @@ module.exports = function layout(content) {
 };
 
 },{"yo-yo":15}],22:[function(require,module,exports){
+var yo = require('yo-yo');
+
+module.exports = function (pic) {
+  return yo`<div class="card">
+      <div class="card-image">
+        <img class="activator" src="${ pic.url }">
+      </div>
+      <div class="card-content">
+        <a href="/user/${ pic.user.username }" class="card-title">
+          <img src="${ pic.user.avatar }" class="avatar">
+          <span class="username">${ pic.user.username }</span>
+        </a>
+        <small class="right time">Hace 1 día</small>
+        <p>
+          <a class="left" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+          <span class="left likes">${ pic.likes } me gusta</a>
+        </p>
+      </div>
+    </div>`;
+};
+
+},{"yo-yo":15}],23:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2483,7 +2531,7 @@ page('/signin', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":23,"empty-element":4,"page":12,"title":14}],23:[function(require,module,exports){
+},{"./template":24,"empty-element":4,"page":12,"title":14}],24:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
@@ -2514,7 +2562,7 @@ var signinForm = yo`<div class="col s12 m7 ">
 
 module.exports = landing(signinForm);
 
-},{"../landing":20,"yo-yo":15}],24:[function(require,module,exports){
+},{"../landing":20,"yo-yo":15}],25:[function(require,module,exports){
 var page = require('page');
 var empty = require('empty-element');
 var template = require('./template');
@@ -2526,7 +2574,7 @@ page('/signup', function (ctx, next) {
   empty(main).appendChild(template);
 });
 
-},{"./template":25,"empty-element":4,"page":12,"title":14}],25:[function(require,module,exports){
+},{"./template":26,"empty-element":4,"page":12,"title":14}],26:[function(require,module,exports){
 var yo = require('yo-yo');
 var landing = require('../landing');
 
