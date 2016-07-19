@@ -7,8 +7,8 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
-#main-container {
-  margin: 30px auto; /*superior e inferior 30px; laterales automático ~centrado*/
+.landing {
+  margin: 30px auto;
 }
 
 .logo {
@@ -32,6 +32,7 @@ body {
 .platzigram {
   font-family: 'Lobster', cursive;
   font-size: 42px;
+  color: teal !important;
 }
 
 .signup-form {
@@ -55,4 +56,15 @@ body {
 
 .signup-form .btn.btn-signup {
   background-color: teal;  
+}
+
+.header {
+  background-color: whitesmoke;
+  color: teal;
+  /*box-shadow: none;*/
+  border-bottom: 1px solid #edeeee;
+}
+
+.timeline {
+  padding: 30px 0;
 }
