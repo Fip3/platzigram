@@ -2413,7 +2413,7 @@ page('/', function (ctx, next) {
     },
     url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/12743668_10153937542994798_5943561022104462831_n.jpg?oh=69d529ed982407338f37d39e4964fa73&oe=57EF2F1A',
     likes: 12,
-    liked: true
+    liked: false
   }];
 
   empty(main).appendChild(template(pictures));
@@ -2500,23 +2500,38 @@ module.exports = function layout(content) {
 },{"yo-yo":15}],22:[function(require,module,exports){
 var yo = require('yo-yo');
 
-module.exports = function (pic) {
-  return yo`<div class="card">
+module.exports = function pictureCard(pic) {
+  var el;
+  function render(picture) {
+    return yo`<div class="card ${ picture.liked ? 'liked' : '' }">
       <div class="card-image">
-        <img class="activator" src="${ pic.url }">
+        <img class="activator" src="${ picture.url }">
       </div>
       <div class="card-content">
-        <a href="/user/${ pic.user.username }" class="card-title">
-          <img src="${ pic.user.avatar }" class="avatar">
-          <span class="username">${ pic.user.username }</span>
+        <a href="/user/${ picture.user.username }" class="card-title">
+          <img src="${ picture.user.avatar }" class="avatar">
+          <span class="username">${ picture.user.username }</span>
         </a>
         <small class="right time">Hace 1 día</small>
         <p>
-          <a class="left" href="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-          <span class="left likes">${ pic.likes } me gusta</a>
+          <a class="left" href="#" onclick=${ like.bind(null, true) }><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+          <a class="left" href="#" onclick=${ like.bind(null, false) }><i class="fa fa-heart" aria-hidden="true"></i></a>
+          <span class="left likes">${ picture.likes } me gusta</a>
         </p>
       </div>
     </div>`;
+  }
+
+  function like(liked) {
+    pic.liked = liked;
+    pic.likes += liked ? 1 : -1;
+    var newEl = render(pic);
+    yo.update(el, newEl);
+    return false;
+  }
+
+  el = render(pic);
+  return el;
 };
 
 },{"yo-yo":15}],23:[function(require,module,exports){

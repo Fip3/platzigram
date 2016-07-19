@@ -6283,3 +6283,13 @@ body {
 
 .card .fa-heart-o {
   color: teal; }
+
+.card .fa-heart {
+  color: teal;
+  display: none; }
+
+.card.liked .fa-heart {
+  display: block; }
+
+.card.liked .fa-heart-o {
+  display: none; }

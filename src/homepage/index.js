@@ -25,7 +25,7 @@ page('/', function(ctx, next){
       },
       url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/12743668_10153937542994798_5943561022104462831_n.jpg?oh=69d529ed982407338f37d39e4964fa73&oe=57EF2F1A',
       likes: 12,
-      liked: true
+      liked: false
     }
 
   ];

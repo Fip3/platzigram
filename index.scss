@@ -7,6 +7,8 @@ body {
   font-family: 'Roboto Slab', serif;
 }
 
+
+
 .landing {
   margin: 30px auto;
 }
@@ -102,4 +104,19 @@ $avatar-size: 48px;
 
 .card .fa-heart-o {
   color: teal;
+}
+
+.card .fa-heart {
+  color: teal;
+  display: none;
+}
+
+.card.liked {
+  .fa-heart {
+    display: block;  
+  }
+
+  .fa-heart-o {
+    display: none;
+  }
 }
