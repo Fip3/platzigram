@@ -1,6 +1,6 @@
 var yo = require('yo-yo');
 var layout = require('../layout');
-var picture = require('../picturecards')
+var picture = require('../picturecards');
 
 var template = function (pictures){
 	
