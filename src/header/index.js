@@ -11,7 +11,7 @@ var el = yo`<nav class="header">
               </div>
               <div class="col s2 m6 push-s10">
                 <a href="#" class="btn btn-large btn-flat dropdown-button" data-activates="drop-user">
-                  <i class="fa fa-user"></i>
+                  <i class="fa fa-user" aria-hidden="true"></i>
                 </a>
                 <ul id="drop-user" class="dropdown-content">
                     <li><a href="#">${translate.message('logout')}</a></li>

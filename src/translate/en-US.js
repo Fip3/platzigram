@@ -18,5 +18,7 @@ module.exports = {
   'signup.have-account': '¿Have a Platzigram profile?',
   'signin': 'Sign in',
   'signin.not-have-account': '¿Don\'t you have a Platzigram account?',
-  'language':'Language'
+  'language':'Language',
+  'upload-picture':'Upload picture',
+  'upload': 'Upload'
 }

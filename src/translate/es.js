@@ -14,5 +14,7 @@ module.exports = {
   'signup.have-account': '¿Ya eres de Platzigram?',
   'signin': 'Ingresa',
   'signin.not-have-account': '¿Todavía no eres de Platzigram?',
-  'language':'Idioma'
+  'language':'Idioma',
+  'upload-picture':'Subir foto',
+  'upload': 'Subir'
 }
