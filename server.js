@@ -1,6 +1,29 @@
 var express = require('express');
 var multer  = require('multer');
 var ext = require('file-extension');
+var config = require('./config');
+var aws = require('aws-sdk');
+var multers3 = require('multer-s3');
+
+var s3 = new aws.S3({
+  accessKeyId: config.aws.accessKey,
+  secretAccessKey: config.aws.secretKey
+})
+
+/*STORAGE PARA INGESTA DE ARCHIVOS EN AWS S3*/
+var storage = multers3({
+  s3: s3,
+  bucket: 'platzigram-ft',
+  acl: 'public-read',
+  metadata: function(req, file, cb){
+    cb(null, { fieldName: file.fieldname})
+  },
+  key: function(req, file, cb){
+    cb(null, +Date.now() + '.' + ext(file.originalname))
+  }
+})
+
+/* STORAGE PARA INGESTA DE ARCHIVOS EN DISCO LOCAL
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -9,7 +32,7 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, +Date.now() + '.' + ext(file.originalname))
   }
-})
+})*/
  
 var upload = multer({ storage: storage }).single('picture');
 
