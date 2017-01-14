@@ -3,7 +3,7 @@ var multer  = require('multer');
 var ext = require('file-extension');
 var config = require('./config');
 var aws = require('aws-sdk');
-var multers3 = require('multer-s3');
+var multerS3 = require('multer-s3');
 
 var s3 = new aws.S3({
   accessKeyId: config.aws.accessKey,
@@ -11,9 +11,9 @@ var s3 = new aws.S3({
 })
 
 /*STORAGE PARA INGESTA DE ARCHIVOS EN AWS S3*/
-var storage = multers3({
+var storage = multerS3({
   s3: s3,
-  bucket: 'platzigram-ft',
+  bucket: 'fi-platzigram',
   acl: 'public-read',
   metadata: function(req, file, cb){
     cb(null, { fieldName: file.fieldname})
@@ -60,9 +60,9 @@ app.get('/api/pictures', function (req,res){
     {
       user: {
         username:'fip3',
-        avatar: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/45537_422800539157_2150048_n.jpg?oh=74fa4353f2d6fe9d7a5434640a7f2704&oe=57F2B8E9'
+        avatar: 'avatar1.png'
       },
-      url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/13770529_10154333404344798_8160011981890782288_n.jpg?oh=58f161f2749ced679ef33f70dabd921c&oe=582FE67A',
+      url: 'subida1.jpg',
       likes: 1,
       liked: false,
       createdAt: new Date().setFullYear(2016,6,16)
@@ -70,10 +70,10 @@ app.get('/api/pictures', function (req,res){
 
     {
       user: {
-        username:'fip3',
-        avatar: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/45537_422800539157_2150048_n.jpg?oh=74fa4353f2d6fe9d7a5434640a7f2704&oe=57F2B8E9'
+        username:'koala',
+        avatar: 'avatar2.png'
       },
-      url: 'https://scontent.fscl3-1.fna.fbcdn.net/v/t1.0-9/12743668_10153937542994798_5943561022104462831_n.jpg?oh=69d529ed982407338f37d39e4964fa73&oe=57EF2F1A',
+      url: 'koala.jpg',
       likes: 1,
       liked: true,
       createdAt: new Date().getTime()
