@@ -1,16 +1,21 @@
 var express = require('express');
-var multer  = require('multer');
-var ext = require('file-extension');
-var config = require('./config');
 var aws = require('aws-sdk');
+var multer  = require('multer');
 var multerS3 = require('multer-s3');
+var ext = require('file-extension');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var expressSession = require('express-session');
+var passport = require('passport');
+var config = require('./config');
+var port = process.env.PORT || 3000;
 
 var s3 = new aws.S3({
   accessKeyId: config.aws.accessKey,
   secretAccessKey: config.aws.secretKey
 })
 
-/*STORAGE PARA INGESTA DE ARCHIVOS EN AWS S3*/
+/*STORAGE PARA INGESTA DE ARCHIVOS EN AWS S3
 var storage = multerS3({
   s3: s3,
   bucket: 'fi-platzigram',
@@ -21,9 +26,9 @@ var storage = multerS3({
   key: function(req, file, cb){
     cb(null, +Date.now() + '.' + ext(file.originalname))
   }
-})
+})*/
 
-/* STORAGE PARA INGESTA DE ARCHIVOS EN DISCO LOCAL
+/* STORAGE PARA INGESTA DE ARCHIVOS EN DISCO LOCAL*/
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -32,11 +37,22 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     cb(null, +Date.now() + '.' + ext(file.originalname))
   }
-})*/
+})
  
 var upload = multer({ storage: storage }).single('picture');
 
 var app = express();
+
+app.set(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(cookieParser());
+app.use(expressSession({
+  secret: config.secret,
+  resave: false,
+  saveUnitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine','pug');
 
@@ -97,8 +113,8 @@ app.post('/api/pictures', function(req, res){
   });
 });
 
-app.listen(3000, function(err){
+app.listen(port, function(err){
 	if (err) return console.log('Ha habido un error'), process.exit(1);
 
-	console.log('Platzigram escuchando al puerto 3000');
+	console.log('Platzigram escuchando al puerto ' + port + '.');
 });
