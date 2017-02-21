@@ -37,6 +37,7 @@
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",
     "passport-local": "^1.0.0",
+    "platzigram-cli": "fip3/platzigram-cli",
     "pug": "^0.1.0",
     "superagent": "^2.1.0",
     "title": "^1.0.0",
