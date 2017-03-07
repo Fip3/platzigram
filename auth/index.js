@@ -1,4 +1,5 @@
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var platzigram = require('platzigram-cli');
 var config = require('../config');
 
@@ -18,10 +19,36 @@ exports.localStrategy = new LocalStrategy((username, password, done) => {
       user.token = token;
       return done(null, user);
     })
-
-
   })
 })
+
+exports.facebookStrategy = new FacebookStrategy({
+  clientID: config.auth.facebook.clientID,
+  clientSecret: config.auth.facebook.clientSecret,
+  callbackURL: config.auth.facebook.callbackURL,
+  profileFields: ['id', 'displayName', 'email']
+}, function (accessToken, refreshToken, profile, done) {
+  var userProfile = {
+    username: profile._json.id,
+    name: profile._json.name,
+    email: profile._json.email,
+    facebook: true
+  }
+
+  findOrCreate(userProfile, (err,user) => {
+    return done(null, user)
+  })
+
+  function findOrCreate (user, callback) {
+    client.getUser(user.username, (err, usr) => {
+      if (err) {
+        return client.saveUser(user, callback);
+      }
+
+      callback(null, usr);
+    })
+  }
+});
 
 exports.serializeUser = function (user, done) {
   done(null, {
