@@ -16,7 +16,7 @@ const config = {
     facebook: {
       clientID: process.env.FACEBOOK_CLIENT_ID,
       clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-      callbackURL: 'http://fipclass.com/auth/facebook/callback'
+      callbackURL: 'http://platzigram.com/auth/facebook/callback'
     }
   },
   secret: process.env.PLATZIGRAM_SECRET || 'pl4tzi'
