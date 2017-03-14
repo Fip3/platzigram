@@ -6,49 +6,60 @@ var request = require('superagent');
 var header = require('../header');
 var axios = require('axios');
 
-page('/', header, asyncLoad, function(ctx, next){
+page('/', header, asyncLoad, function (ctx, next){
   title('Platzigram');
   var main = document.getElementById('main-container');
 
   empty(main).appendChild(template(ctx.pictures));
 })
 
-// function loadPictures(ctx, next) {
-//   request
-//     .get('/api/pictures')
-//     .end(function(err,res) {
-//       if (err) return console.log(err);
+function loading(ctx, next) {
+  var container = document.createElement('div');
+  var loadingEl = document.createElement('div');
+  container.classList.add('loader-container');
+  loadingEl.classList.add('loader');
+  container.appendChild(loadingEl);
+  var main = document.getElementById('main-container');
+  empty(main).appendChild(container);
+  next();
+}
 
-//       ctx.pictures = res.body;
-//       next();
-//     })
-// }
+function loadPictures(ctx, next) {
+  request
+    .get('/api/pictures')
+    .end(function(err,res) {
+      if (err) return console.log(err);
 
-// function loadPictures(ctx, next) {
-//   axios
-//     .get('/api/pictures')
-//     .then(function(res) {
-//       ctx.pictures = res.data;
-//       next();
-//     })
-//     .catch(function (err){
-//       console.log(err);
-//     })
-// }
+      ctx.pictures = res.body;
+      next();
+    })
+}
 
-// function  loadPictures(ctx, next) {
-//   fetch('/api/pictures')
-//     .then(function (res){
-//       return res.json();
-//     })
-//     .then(function (pictures){
-//       ctx.pictures = pictures;
-//       next();
-//     })
-//     .catch(function (err){
-//       console.log(err);
-//     })
-// }
+function loadPicturesAxios(ctx, next) {
+  axios
+    .get('/api/pictures')
+    .then(function(res) {
+      ctx.pictures = res.data;
+      next();
+    })
+    .catch(function (err){
+      console.log(err);
+    })
+}
+
+function  loadPicturesFetch(ctx, next) {
+  fetch('/api/pictures')
+    .then(function (res){
+      return res.json();
+    })
+    .then(function (pictures){
+      ctx.pictures = pictures;
+      next();
+    })
+    .catch(function (err){
+      console.log(err);
+    })
+}
 
 async function asyncLoad(ctx, next) {
   try {

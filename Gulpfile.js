@@ -21,8 +21,7 @@ gulp.task('assets', function () {
 })
 
 function compile(watch) {
-  var bundle = browserify('./src/index.js', {debug: true}
-  );
+  var bundle = browserify('./src/index.js', {debug: true});
 
   if (watch) {
     bundle = watchify(bundle);
